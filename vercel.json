@@ -1,0 +1,18 @@
+{
+  "builds": [
+    {
+      "src": "proxen_global_bd/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.11"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "proxen_global_bd/wsgi.py"
+    }
+  ]
+}

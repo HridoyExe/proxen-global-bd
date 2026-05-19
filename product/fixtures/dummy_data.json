@@ -1,0 +1,90 @@
+[
+  {
+    "model": "product.category",
+    "pk": 1,
+    "fields": {
+      "name": "Pakistani Fashion & Textiles",
+      "slug": "pakistani-fashion-textiles",
+      "created_at": "2026-05-09T00:00:00Z",
+      "updated_at": "2026-05-09T00:00:00Z"
+    }
+  },
+  {
+    "model": "product.category",
+    "pk": 2,
+    "fields": {
+      "name": "China Electronics & Health",
+      "slug": "china-electronics-health",
+      "created_at": "2026-05-09T00:00:00Z",
+      "updated_at": "2026-05-09T00:00:00Z"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 1,
+    "fields": {
+      "name": "3-Piece Suit",
+      "slug": "3-piece-suit",
+      "description": "Elegant Pakistani 3-Piece Suit made from premium fabrics.",
+      "sku": "PAK-3P-001",
+      "price": 3500.00,
+      "category": 1,
+      "image": null,
+      "is_available": true,
+      "created_at": "2026-05-09T00:00:00Z",
+      "updated_at": "2026-05-09T00:00:00Z"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 2,
+    "fields": {
+      "name": "Smart Device / Smartphone",
+      "slug": "smart-device-smartphone",
+      "description": "Latest generation China electronics smart device.",
+      "sku": "CHN-SMART-001",
+      "price": 25000.00,
+      "category": 2,
+      "image": null,
+      "is_available": true,
+      "created_at": "2026-05-09T00:00:00Z",
+      "updated_at": "2026-05-09T00:00:00Z"
+    }
+  },
+  {
+    "model": "product.productvariant",
+    "pk": 1,
+    "fields": {
+      "product": 1,
+      "color": "Red",
+      "size": "M",
+      "stock": 10,
+      "created_at": "2026-05-09T00:00:00Z",
+      "updated_at": "2026-05-09T00:00:00Z"
+    }
+  },
+  {
+    "model": "product.productvariant",
+    "pk": 2,
+    "fields": {
+      "product": 1,
+      "color": "Black",
+      "size": "L",
+      "stock": 5,
+      "created_at": "2026-05-09T00:00:00Z",
+      "updated_at": "2026-05-09T00:00:00Z"
+    }
+  },
+  {
+    "model": "product.productvariant",
+    "pk": 3,
+    "fields": {
+      "product": 2,
+      "color": "Silver",
+      "size": "128GB",
+      "stock": 20,
+      "created_at": "2026-05-09T00:00:00Z",
+      "updated_at": "2026-05-09T00:00:00Z"
+    }
+  }
+]
