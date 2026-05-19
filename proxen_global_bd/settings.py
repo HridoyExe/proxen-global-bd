@@ -80,6 +80,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'proxen_global_bd.wsgi.app'
 
+CORS_ALLOW_ALL_ORIGINS = [
+    'http://localhost:5173'
+]
+
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
