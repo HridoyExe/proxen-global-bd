@@ -112,5 +112,6 @@ Once the server is running, you can explore the available API endpoints using th
 2. **Access**: Include the access token in the header of protected requests: `Authorization: Bearer <your_access_token>`.
 3. **Refresh**: Use your refresh token to get a new access token when it expires.
 
+
 ---
 *Built for Proxen Global E-commerce Platform.*
