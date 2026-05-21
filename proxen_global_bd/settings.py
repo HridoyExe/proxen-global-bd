@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-*f^@^4nqxxbsx#-yc8!m3md_98c^*_kd5d*ll0le68&xez4gt_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [".vercel.app","127.0.0.1"]
+ALLOWED_HOSTS = ["localhost",".vercel.app","127.0.0.1"]
 CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
@@ -80,7 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'proxen_global_bd.wsgi.app'
 
-CORS_ALLOW_ALL_ORIGINS = [
+CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173'
 ]
 
@@ -165,7 +165,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+    'PAGE_SIZE': 8,
     'COERCE_DECIMAL_TO_STRING': False
 }
 
@@ -179,6 +179,9 @@ SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': False,
     'AUTH_HEADER_TYPES': ('JWT',),
 }
+
+BACKEND_URL=config('BACKEND_URL')
+FRONTEND_URL=config('FRONTEND_URL')
 
 # import os
 # MEDIA_URL = '/media/'

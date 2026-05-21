@@ -18,6 +18,7 @@ class TimeStampedModel(models.Model):
 class Category(TimeStampedModel):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(unique=True, blank=True)
+    image = CloudinaryField('image', blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:

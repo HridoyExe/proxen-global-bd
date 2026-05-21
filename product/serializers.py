@@ -2,9 +2,18 @@ from rest_framework import serializers
 from .models import Category, Product, ProductImage, ProductVariant
 
 class CategorySerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False, allow_null=True)
+    thumbnail = serializers.SerializerMethodField()
+
     class Meta:
         model = Category
         fields = '__all__'
+
+    def get_thumbnail(self, obj):
+        first = obj.products.filter(image__isnull=False).first()
+        if first and first.image:
+            return first.image.url
+        return None
 
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,6 +38,6 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def to_representation(self, instance):
-        # API রেসপন্স থেকে null ভ্যালুগুলো (যেমন discount_price: null বা image: null) রিমুভ করে দিবে
+        
         data = super().to_representation(instance)
         return {key: value for key, value in data.items() if value is not None}
