@@ -180,8 +180,8 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
 }
 
-BACKEND_URL=config('BACKEND_URL')
-FRONTEND_URL=config('FRONTEND_URL')
+BACKEND_URL=config('BACKEND_URL', default='')
+FRONTEND_URL=config('FRONTEND_URL', default='')
 
 # import os
 # MEDIA_URL = '/media/'
