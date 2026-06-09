@@ -3,6 +3,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework import filters
+from django.db.models import Prefetch
 from django_filters.rest_framework import DjangoFilterBackend
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
@@ -20,7 +21,13 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     Category API Endpoints
     """
-    queryset = Category.objects.all()
+    queryset = Category.objects.prefetch_related(
+        Prefetch(
+            'products',
+            queryset=Product.objects.filter(image__isnull=False),
+            to_attr='prefetched_products_with_image'
+        )
+    )
     serializer_class = CategorySerializer
     permission_classes = [IsAdminOrReadOnly]
     filter_backends = [filters.SearchFilter]
@@ -36,7 +43,11 @@ class ProductViewSet(viewsets.ModelViewSet):
     """
     Product API Endpoints
     """
-    queryset = Product.objects.all()
+    queryset = Product.objects.select_related('category').prefetch_related(
+        'images',
+        'variants',
+        'variants__variant_images'
+    )
     serializer_class = ProductSerializer
     permission_classes = [IsAdminOrReadOnly]
     parser_classes = (MultiPartParser, FormParser, JSONParser)
@@ -53,6 +64,9 @@ class ProductViewSet(viewsets.ModelViewSet):
         product = serializer.instance
         self._save_extras(request, product)
         
+        # Re-fetch product with select_related/prefetch_related to avoid stale cache or N+1 queries in response
+        product = self.get_queryset().get(pk=product.pk)
+        
         headers = self.get_success_headers(serializer.data)
         return Response(ProductSerializer(product).data, status=status.HTTP_201_CREATED, headers=headers)
 
@@ -65,6 +79,9 @@ class ProductViewSet(viewsets.ModelViewSet):
         
         product = serializer.instance
         self._save_extras(request, product, is_update=True)
+        
+        # Re-fetch product with select_related/prefetch_related to avoid stale cache or N+1 queries in response
+        product = self.get_queryset().get(pk=product.pk)
         
         return Response(ProductSerializer(product).data)
 

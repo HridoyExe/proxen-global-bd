@@ -10,7 +10,11 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_thumbnail(self, obj):
-        first = obj.products.filter(image__isnull=False).first()
+        prefetched = getattr(obj, 'prefetched_products_with_image', None)
+        if prefetched is not None:
+            first = prefetched[0] if prefetched else None
+        else:
+            first = obj.products.filter(image__isnull=False).first()
         if first and first.image:
             return first.image.url
         return None
